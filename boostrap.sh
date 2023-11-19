@@ -1,3 +1,4 @@
+#!/bin/bash
 # Bootstrapping script for local machine: git + pyenv + ansible
 set -euxo pipefail
 
@@ -42,7 +43,7 @@ function setup_ansible() {
     which ansible && ansible --version
 }
 
-
+# If shellcheck blocks on this, you need to add -x arg to it
 source utils/colors.sh
 source utils/display.sh
 #setup_pyenv

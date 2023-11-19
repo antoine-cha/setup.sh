@@ -1,3 +1,4 @@
+#!/bin/bash
 # Text colors and formats variables.
 # Run this script to display all variations in a table
 
@@ -84,9 +85,9 @@ function show_colors() {
         HEADER+="\t$format"
     done
     echo -e "Color | Format$HEADER$CLEAR"
-    for color in ${COLOR_NAMES[@]}; do
+    for color in "${COLOR_NAMES[@]}"; do
         printf "%-10s" "$color"
-        for format in ${FORMATS[@]}; do
+        for format in "${FORMATS[@]}"; do
             c="$format$color"
             printf "\t${!c}text$CLEAR"
             # printf "Text in %-12s: ${!c}my text$CLEAR \n" "$c"
