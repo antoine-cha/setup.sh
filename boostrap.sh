@@ -1,6 +1,6 @@
 #!/bin/bash
 # Bootstrapping script for local machine: git + pyenv + ansible
-set -euxo pipefail
+set -uo pipefail
 
 function setup_pyenv() {
     sudo apt-get update;
@@ -46,8 +46,6 @@ function setup_ansible() {
 # If shellcheck blocks on this, you need to add -x arg to it
 source utils/colors.sh
 source utils/display.sh
-#setup_pyenv
+announce_fn setup_pyenv
 
-echo -e "$BG_YELLOW $(announce Setting up Ansible) $CLEAR"
-setup_ansible
-echo -e "$BG_GREEN $(announce [DONE] Set up Ansible) $CLEAR"
+announce_fn setup_ansible
