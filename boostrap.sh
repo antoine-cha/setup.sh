@@ -42,5 +42,11 @@ function setup_ansible() {
     which ansible && ansible --version
 }
 
+
+source utils/colors.sh
+source utils/display.sh
 #setup_pyenv
+
+echo -e "$BG_YELLOW $(announce Setting up Ansible) $CLEAR"
 setup_ansible
+echo -e "$BG_GREEN $(announce [DONE] Set up Ansible) $CLEAR"
