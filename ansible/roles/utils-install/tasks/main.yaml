@@ -53,8 +53,11 @@
     shell: /bin/zsh
   become: true
 
-# Install font
+# ============ #
+# Install font #
+# ============ #
 - name: Create fonts directory
+  when: starship_installation_script.changed
   ansible.builtin.file:
     path: "~/.fonts"
     mode: "0775"
@@ -71,3 +74,24 @@
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
     dest: "~/.fonts/"
     remote_src: true
+
+# ==================== #
+# Gnome-terminal theme #
+# ==================== #
+- name: Create .local/src directory
+  ansible.builtin.file:
+    path: "~/.local/src/"
+    mode: "0775"
+    state: directory
+
+- name: Install Gogh
+  ansible.builtin.git:
+    repo: https://github.com/Gogh-Co/Gogh.git
+    dest: ~/.local/src/gogh
+
+- name: Apply Gogh theme
+  ansible.builtin.shell:
+    cmd: ~/.local/src/gogh/installs/aci.sh
+    executable: /bin/sh
+  environment:
+      TERMINAL: gnome-terminal
