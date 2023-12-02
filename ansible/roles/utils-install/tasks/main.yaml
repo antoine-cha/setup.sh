@@ -30,10 +30,10 @@
 
 - name: Install starship with installation script
   become: true
+  when: starship_installation_script.changed
   ansible.builtin.shell:
     cmd: /tmp/starship_install.sh --yes
     executable: /bin/sh
-  when: starship_installation_script.changed
 
 - name: Import .zshrc from files
   ansible.builtin.copy:

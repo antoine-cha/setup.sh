@@ -1,7 +1,13 @@
+
 # Ansible playbooks
 
 Source of Rust utils: https://sts10.github.io/docs/rust-command-line-tools.html
 
+## Get started
+Execute locally with
+```Shell
+ansible-playbook --ask-become-pass -e user=$USER -i inventory.ini playbook-local.yaml
+```
 ## Utilities
 
 ### User
@@ -32,7 +38,7 @@ Not necessary on Ubuntu 22.04 ??
 - diff-so-fancy ou delta
 - starship.rs
 - zsh
-### Dev 
+### Dev
 - nvidia-drivers
 - docker
 - docker-compose
