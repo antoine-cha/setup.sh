@@ -1,0 +1,7 @@
+---
+- name: Install local machine
+  hosts: all
+  roles:
+    # - example
+    # - rust
+    - utils-install

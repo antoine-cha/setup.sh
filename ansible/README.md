@@ -23,9 +23,9 @@ Not necessary on Ubuntu 22.04 ??
 
 
 ### Dev experience
-- tmux
-- neovim
-- fzf
+- tmux + config
+- neovim + config
+- fzf + config
 - ripgrep
 - exa
 - bat

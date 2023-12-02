@@ -1,0 +1,73 @@
+---
+
+- name: Install packages with apt
+  become: true
+  ansible.builtin.apt:
+    name:
+      - curl
+      - git
+      - tmux
+      - tree
+      - htop
+      - zsh
+      - fzf
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install Oh My Zsh # noqa: latest
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: ~/.oh-my-zsh
+    depth: 1
+
+- name: Get starship install script
+  ansible.builtin.get_url:
+    url: https://starship.rs/install.sh
+    dest: /tmp/starship_install.sh
+    mode: '0755'
+  register: starship_installation_script
+
+- name: Install starship with installation script
+  become: true
+  ansible.builtin.shell:
+    cmd: /tmp/starship_install.sh --yes
+    executable: /bin/sh
+  when: starship_installation_script.changed
+
+- name: Import .zshrc from files
+  ansible.builtin.copy:
+    src: zshrc
+    dest: ~/.zshrc
+    mode: "0644"
+
+- name: Import starship TOML config
+  ansible.builtin.copy:
+    src: starship.toml
+    dest: ~/.config/starship.toml
+    mode: "0644"
+
+- name: Change the default shell to Zsh
+  ansible.builtin.user:
+    name: "{{ user }}"
+    shell: /bin/zsh
+  become: true
+
+# Install font
+- name: Create fonts directory
+  ansible.builtin.file:
+    path: "~/.fonts"
+    mode: "0775"
+    state: directory
+
+- name: Check if Hack font exists
+  ansible.builtin.stat:
+    path: "~/.fonts/Hack Bold Italic Nerd Font Complete.ttf"
+  register: hack_exists
+
+- name: Download Hack
+  when: not hack_exists.stat.exists
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
+    dest: "~/.fonts/"
+    remote_src: true

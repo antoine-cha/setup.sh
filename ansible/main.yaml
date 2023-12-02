@@ -1,7 +1,0 @@
----
-- name: Display a String Playbook
-  hosts: localhost  
-
-  roles:
-    # - example
-    - rust
