@@ -1,5 +1,9 @@
 ---
+# Inspired from: https://github.com/LorenzoBettini/ansible-molecule-oh-my-zsh-example/blob/master/files/zshrc-starship
 
+# ===== #
+# Utils #
+# ===== #
 - name: Install packages with apt
   become: true
   ansible.builtin.apt:
@@ -15,12 +19,49 @@
     update_cache: true
     cache_valid_time: 3600
 
+# ===== #
+# Neovim #
+# ===== #
+- name: Download Neovim tar.gz
+  ansible.builtin.get_url:
+    url: "https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz"
+    dest: "/tmp/nvim-linux64.tar.gz"
+    mode: "0644"
+
+- name: Extract Neovim tar.gz
+  ansible.builtin.unarchive:
+    src: "/tmp/nvim-linux64.tar.gz"
+    dest: "~/.local/share/"
+    remote_src: true
+    creates: "~/.local/share/nvim-linux64/bin/nvim"
+
+- name: Verify Neovim Installation
+  ansible.builtin.command: "~/.local/share/nvim-linux64/bin/nvim --version"
+  register: neovim_version
+  changed_when: false
+
+- name: Show Neovim Version
+  ansible.builtin.debug:
+    msg: "Neovim version installed: {{ neovim_version.stdout_lines[0] }}"
+
+# === #
+# ZSH #
+# === #
 - name: Install Oh My Zsh # noqa: latest
   ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
     dest: ~/.oh-my-zsh
     depth: 1
 
+- name: Change the default shell to Zsh
+  ansible.builtin.user:
+    name: "{{ user }}"
+    shell: /bin/zsh
+  become: true
+
+# ======== #
+# Starship #
+# ======== #
 - name: Get starship install script
   ansible.builtin.get_url:
     url: https://starship.rs/install.sh
@@ -35,6 +76,9 @@
     cmd: /tmp/starship_install.sh --yes
     executable: /bin/sh
 
+# ================ #
+# TODO: move to chezmoi #
+# ================ #
 - name: Import .zshrc from files
   ansible.builtin.copy:
     src: zshrc
@@ -47,33 +91,22 @@
     dest: ~/.config/starship.toml
     mode: "0644"
 
-- name: Change the default shell to Zsh
-  ansible.builtin.user:
-    name: "{{ user }}"
-    shell: /bin/zsh
-  become: true
 
 # ============ #
 # Install font #
 # ============ #
 - name: Create fonts directory
-  when: starship_installation_script.changed
   ansible.builtin.file:
     path: "~/.fonts"
     mode: "0775"
     state: directory
 
-- name: Check if Hack font exists
-  ansible.builtin.stat:
-    path: "~/.fonts/Hack Bold Italic Nerd Font Complete.ttf"
-  register: hack_exists
-
 - name: Download Hack
-  when: not hack_exists.stat.exists
   ansible.builtin.unarchive:
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
     dest: "~/.fonts/"
     remote_src: true
+    creates: "~/.fonts/Hack Bold Italic Nerd Font Complete.ttf"
 
 # ==================== #
 # Gnome-terminal theme #
@@ -87,6 +120,7 @@
 - name: Install Gogh
   ansible.builtin.git:
     repo: https://github.com/Gogh-Co/Gogh.git
+    version: "v248"
     dest: ~/.local/src/gogh
 
 - name: Apply Gogh theme
@@ -94,4 +128,4 @@
     cmd: ~/.local/src/gogh/installs/aci.sh
     executable: /bin/sh
   environment:
-      TERMINAL: gnome-terminal
+    TERMINAL: gnome-terminal
