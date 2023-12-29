@@ -1,0 +1,5 @@
+---
+neovim_tag: v0.9.4
+neovim_url: "https://github.com/neovim/neovim/releases/download/{{ neovim_tag }}/nvim-linux64.tar.gz"
+neovim_release_dest: "~/.local/share"
+neovim_bin_link_dest: "~/.local/bin/nvim"

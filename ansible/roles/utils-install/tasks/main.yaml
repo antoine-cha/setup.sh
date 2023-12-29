@@ -19,30 +19,6 @@
     update_cache: true
     cache_valid_time: 3600
 
-# ===== #
-# Neovim #
-# ===== #
-- name: Download Neovim tar.gz
-  ansible.builtin.get_url:
-    url: "https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz"
-    dest: "/tmp/nvim-linux64.tar.gz"
-    mode: "0644"
-
-- name: Extract Neovim tar.gz
-  ansible.builtin.unarchive:
-    src: "/tmp/nvim-linux64.tar.gz"
-    dest: "~/.local/share/"
-    remote_src: true
-    creates: "~/.local/share/nvim-linux64/bin/nvim"
-
-- name: Verify Neovim Installation
-  ansible.builtin.command: "~/.local/share/nvim-linux64/bin/nvim --version"
-  register: neovim_version
-  changed_when: false
-
-- name: Show Neovim Version
-  ansible.builtin.debug:
-    msg: "Neovim version installed: {{ neovim_version.stdout_lines[0] }}"
 
 # === #
 # ZSH #
@@ -111,6 +87,7 @@
 # ==================== #
 # Gnome-terminal theme #
 # ==================== #
+# TODO: replace with saved dconf file
 - name: Create .local/src directory
   ansible.builtin.file:
     path: "~/.local/src/"
