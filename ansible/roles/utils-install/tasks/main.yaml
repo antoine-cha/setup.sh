@@ -26,7 +26,7 @@
 - name: Install Oh My Zsh # noqa: latest
   ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
-    dest: ~/.oh-my-zsh
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh"
     depth: 1
 
 - name: Change the default shell to Zsh
@@ -58,13 +58,13 @@
 - name: Import .zshrc from files
   ansible.builtin.copy:
     src: zshrc
-    dest: ~/.zshrc
+    dest: "{{ ansible_env.HOME }}/.zshrc"
     mode: "0644"
 
 - name: Import starship TOML config
   ansible.builtin.copy:
     src: starship.toml
-    dest: ~/.config/starship.toml
+    dest: "{{ ansible_env.HOME }}/.config/starship.toml"
     mode: "0644"
 
 
@@ -73,16 +73,16 @@
 # ============ #
 - name: Create fonts directory
   ansible.builtin.file:
-    path: "~/.fonts"
+    path: "{{ ansible_env.HOME }}/.fonts"
     mode: "0775"
     state: directory
 
 - name: Download Hack
   ansible.builtin.unarchive:
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
-    dest: "~/.fonts/"
+    dest: "{{ ansible_env.HOME }}/.fonts/"
     remote_src: true
-    creates: "~/.fonts/Hack Bold Italic Nerd Font Complete.ttf"
+    creates: "{{ ansible_env.HOME }}/.fonts/Hack Bold Italic Nerd Font Complete.ttf"
 
 # ==================== #
 # Gnome-terminal theme #
@@ -90,7 +90,7 @@
 # TODO: replace with saved dconf file
 - name: Create .local/src directory
   ansible.builtin.file:
-    path: "~/.local/src/"
+    path: "{{ ansible_env.HOME }}/.local/src/"
     mode: "0775"
     state: directory
 
@@ -98,11 +98,11 @@
   ansible.builtin.git:
     repo: https://github.com/Gogh-Co/Gogh.git
     version: "v248"
-    dest: ~/.local/src/gogh
+    dest: "{{ ansible_env.HOME }}/.local/src/gogh"
 
 - name: Apply Gogh theme
   ansible.builtin.shell:
-    cmd: ~/.local/src/gogh/installs/aci.sh
+    cmd: "{{ ansible_env.HOME }}/.local/src/gogh/installs/aci.sh"
     executable: /bin/sh
   environment:
     TERMINAL: gnome-terminal
