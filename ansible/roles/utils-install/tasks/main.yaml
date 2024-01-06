@@ -9,12 +9,12 @@
   ansible.builtin.apt:
     name:
       - curl
+      - fzf
       - git
+      - htop
       - tmux
       - tree
-      - htop
       - zsh
-      - fzf
     state: present
     update_cache: true
     cache_valid_time: 3600

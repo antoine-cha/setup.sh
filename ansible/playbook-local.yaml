@@ -4,4 +4,7 @@
   roles:
     # - example
     # - rust
-    - utils-install
+    # - utils-install
+    # - neovim
+    - dotfiles
+    # - vscode
