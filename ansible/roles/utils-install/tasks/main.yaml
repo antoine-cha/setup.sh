@@ -52,22 +52,6 @@
     cmd: /tmp/starship_install.sh --yes
     executable: /bin/sh
 
-# ================ #
-# TODO: move to chezmoi #
-# ================ #
-- name: Import .zshrc from files
-  ansible.builtin.copy:
-    src: zshrc
-    dest: "{{ ansible_env.HOME }}/.zshrc"
-    mode: "0644"
-
-- name: Import starship TOML config
-  ansible.builtin.copy:
-    src: starship.toml
-    dest: "{{ ansible_env.HOME }}/.config/starship.toml"
-    mode: "0644"
-
-
 # ============ #
 # Install font #
 # ============ #
