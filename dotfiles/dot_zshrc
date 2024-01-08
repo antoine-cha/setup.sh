@@ -1,3 +1,6 @@
+#### PROFILING
+#zmodload zsh/zprof  
+
 # Inspired from: https://github.com/LorenzoBettini/ansible-molecule-oh-my-zsh-example/blob/master/files/zshrc-starship
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -54,7 +57,7 @@ ZSH_THEME=""
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -73,18 +76,11 @@ ZSH_THEME=""
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    # git
-    # aliases
-    # branch
-    # github
-    # zsh-autosuggestions
-    # zsh-syntax-highlighting
-    # zsh-completions
-    # zsh-interactive-cd
-    # zsh-navigation-tools
-    # fzf
-    # zoxide
-    # autoupdate
+    aliases
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    fzf
+    fzf-tab
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -106,5 +102,19 @@ export EDITOR="nvim"
 # Aliases
 source "$HOME/.config/aliases/common.sh"
 
+# Functions
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
+    *)            fzf "$@" ;;
+  esac
+}
+
 # Finally start starship
 eval "$(starship init zsh)"
+
+#### PROFILING
+#zprof
