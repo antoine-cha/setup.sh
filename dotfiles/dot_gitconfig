@@ -2,7 +2,8 @@
     name = antoine-cha
     email = antoine.chassang0@gmail.com
 [core]
-    editor = vim
+    editor = nvim
+    pager = delta
 [alias]
     br = branch
     bra = branch --all
@@ -30,7 +31,13 @@
     date = relative
 [format]
     pretty = format:%C(yellow)%h %C(cyan)%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s
-[pager]
-    log = diff-so-fancy | less --tabs=1,5 -RFX
-    diff = diff-so-fancy | less --tabs=1,5 -RFX
-    show = diff-so-fancy | less --tabs=1,5 -RFX
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    syntax-theme = Monokai Extended
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default

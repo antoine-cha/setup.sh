@@ -1,5 +1,5 @@
 #### PROFILING
-#zmodload zsh/zprof  
+#zmodload zsh/zprof
 
 # Inspired from: https://github.com/LorenzoBettini/ansible-molecule-oh-my-zsh-example/blob/master/files/zshrc-starship
 # If you come from bash you might have to change your $PATH.
@@ -109,10 +109,12 @@ _fzf_comprun() {
 
   case "$command" in
     cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
+    vim|nvim)     fzf "$@" --preview 'bat --style=numbers --color=always --line-range :500 {}' ;;
     *)            fzf "$@" ;;
   esac
 }
 
+neofetch
 # Finally start starship
 eval "$(starship init zsh)"
 

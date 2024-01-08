@@ -30,6 +30,7 @@
       - git
       - htop
       - jq
+      - neofetch
       - ripgrep
       - tmux
       - tree
