@@ -1,0 +1,35 @@
+---
+
+- name: Install nvidia-driver with apt
+  become: true
+  ansible.builtin.apt:
+    name:
+      - "nvidia-driver-{{ nvidia.driver_version }}"
+    state: present
+
+- name: Install the GPG keyring for Ubuntu
+  become: true
+  ansible.builtin.apt:
+    deb: "https://developer.download.nvidia.com/compute/cuda/repos/{{ nvidia.dist_name }}/{{ nvidia.arch }}/cuda-keyring_1.1-1_all.deb"
+
+- name: Install cuda-toolkit with apt
+  become: true
+  ansible.builtin.apt:
+    name:
+      - cuda-toolkit
+      - zlib1g
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install cuDNN with apt
+  become: true
+  ansible.builtin.apt:
+    name:
+      - "libcudnn8={{ nvidia.cudnn_version }}-1+cuda{{ nvidia.cuda_version }}"
+      - "libcudnn8-dev={{ nvidia.cudnn_version }}-1+cuda{{ nvidia.cuda_version }}"
+      - "libcudnn8-samples={{ nvidia.cudnn_version }}-1+cuda{{ nvidia.cuda_version }}"
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+

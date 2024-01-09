@@ -1,0 +1,7 @@
+nvidia:
+  driver_version: 535
+  dist_name: ubuntu2204
+  arch: x86_64
+  cuda_version: 12.2
+  cudnn_version: 8.9.7.*
+

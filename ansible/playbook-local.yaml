@@ -1,10 +1,13 @@
 ---
 - name: Install local machine
   hosts: all
+  vars_files:
+  - config.yaml
   roles:
     # - example
     # - rust
-    - utils-install
+    # - utils-install
     # - neovim
+    - nvidia
     # - dotfiles
     # - vscode

@@ -89,13 +89,17 @@ source $ZSH/oh-my-zsh.sh
 # ================================== #
 # ======= User configuration ======= #
 # ================================== #
-export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/bin${PATH:+:${PATH}}
 # pyenv
-export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH="$HOME/.pyenv/bin${PATH:+:${PATH}}"
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 # Rust
 source "$HOME/.cargo/env"
+# Cuda
+export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
 
 # Params
 export EDITOR="nvim"
