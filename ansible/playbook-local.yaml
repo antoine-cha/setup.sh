@@ -8,6 +8,7 @@
     # - rust
     # - utils-install
     # - neovim
-    - nvidia
+    # - nvidia
     # - dotfiles
     # - vscode
+    - docker
