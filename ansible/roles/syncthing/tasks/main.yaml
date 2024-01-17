@@ -1,0 +1,31 @@
+---
+- name: Add Syncthing GPG key
+  become: true
+  ansible.builtin.get_url:
+    url: https://syncthing.net/release-key.txt
+    dest: /etc/apt/trusted.gpg.d/syncthing.asc
+    mode: '0644'
+    force: true
+
+- name: Add Syncthing repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/syncthing.asc] https://apt.syncthing.net/ syncthing stable
+    state: present
+    filename: syncthing
+
+- name: Install Syncthing
+  become: true
+  ansible.builtin.apt:
+    name: syncthing
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Enable systemd syncthing@.service
+  become: true
+  ansible.builtin.systemd_service:
+    name: "syncthing@{{ ansible_env.USER }}.service"
+    enabled: true
+  notify:
+    - Start Syncthing service

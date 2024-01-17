@@ -1,0 +1,5 @@
+---
+- name: Start Syncthing service
+  ansible.builtin.systemd_service:
+    name: "syncthing@{{ ansible_env.USER }}.service"
+    state: started

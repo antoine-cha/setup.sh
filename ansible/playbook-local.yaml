@@ -8,8 +8,11 @@
     # - rust
     # - utils-install
     # - neovim
-    # - nvidia
     # - dotfiles
     # - vscode
     # - docker
-    - wine
+    # GPU only
+    # - nvidia
+    # Mostly for personal machines
+    # - wine
+    - syncthing
