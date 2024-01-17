@@ -2,7 +2,7 @@
 - name: Install local machine
   hosts: all
   vars_files:
-  - config.yaml
+    - config.yaml
   roles:
     # - example
     # - rust
@@ -11,4 +11,5 @@
     # - nvidia
     # - dotfiles
     # - vscode
-    - docker
+    # - docker
+    - wine

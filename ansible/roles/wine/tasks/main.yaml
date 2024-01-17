@@ -1,0 +1,28 @@
+---
+- name: Add i386 architecture
+  become: true
+  ansible.builtin.command: dpkg --add-architecture i386
+
+- name: Import Wine GPG key
+  become: true
+  ansible.builtin.get_url:
+    url: https://dl.winehq.org/wine-builds/winehq.key
+    dest: /etc/apt/keyrings/winehq-archive.key
+    mode: '0644'
+    force: true
+
+- name: Add WineHQ APT repository configuration
+  become: true
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/winehq-archive.key] https://dl.winehq.org/wine-builds/ubuntu jammy main"
+    state: present
+
+- name: Install WineHQ
+  become: true
+  ansible.builtin.apt:
+    name:
+      - winehq-stable
+    install_recommends: true
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
