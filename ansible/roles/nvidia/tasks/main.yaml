@@ -10,7 +10,7 @@
 - name: Install the GPG keyring for Ubuntu
   become: true
   ansible.builtin.apt:
-    deb: "https://developer.download.nvidia.com/compute/cuda/repos/{{ nvidia.dist_name }}/{{ nvidia.arch }}/cuda-keyring_1.1-1_all.deb"
+    deb: "https://developer.download.nvidia.com/compute/cuda/repos/{{ nvidia.dist_name }}/{{ system.arch }}/cuda-keyring_1.1-1_all.deb"
 
 - name: Install cuda-toolkit with apt
   become: true

@@ -31,6 +31,7 @@
       - htop
       - jq
       - neofetch
+      - net-tools
       - ripgrep
       - tmux
       - tree
@@ -44,7 +45,6 @@
     src: /usr/bin/batcat
     dest: "{{ ansible_env.HOME }}/.local/bin/bat"
     state: link
-
 
 - name: Install navi with cargo
   community.general.cargo:
@@ -60,7 +60,6 @@
   community.general.cargo:
     name: git-delta
     version: 0.16.5
-
 
 # === #
 # ZSH #
@@ -132,21 +131,21 @@
 # Gnome-terminal theme #
 # ==================== #
 # TODO: replace with saved dconf file
-- name: Create .local/src directory
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.local/src/"
-    mode: "0775"
-    state: directory
+# - name: Create .local/src directory
+#   ansible.builtin.file:
+#     path: "{{ ansible_env.HOME }}/.local/src/"
+#     mode: "0775"
+#     state: directory
 
-- name: Install Gogh
-  ansible.builtin.git:
-    repo: https://github.com/Gogh-Co/Gogh.git
-    version: "v248"
-    dest: "{{ ansible_env.HOME }}/.local/src/gogh"
+# - name: Install Gogh
+#   ansible.builtin.git:
+#     repo: https://github.com/Gogh-Co/Gogh.git
+#     version: "v248"
+#     dest: "{{ ansible_env.HOME }}/.local/src/gogh"
 
-- name: Apply Gogh theme
-  ansible.builtin.shell:
-    cmd: "{{ ansible_env.HOME }}/.local/src/gogh/installs/aci.sh"
-    executable: /bin/sh
-  environment:
-    TERMINAL: gnome-terminal
+# - name: Apply Gogh theme
+#   ansible.builtin.shell:
+#     cmd: "{{ ansible_env.HOME }}/.local/src/gogh/installs/aci.sh"
+#     executable: /bin/sh
+#   environment:
+#     TERMINAL: gnome-terminal

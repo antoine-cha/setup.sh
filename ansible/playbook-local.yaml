@@ -11,8 +11,9 @@
     # - dotfiles
     # - vscode
     # - docker
+    - btop
     # GPU only
     # - nvidia
     # Mostly for personal machines
     # - wine
-    - syncthing
+    # - syncthing
