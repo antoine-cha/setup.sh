@@ -7,6 +7,9 @@ nvidia:
   cudnn_version: 8.9.7.*
 obsidian:
   git_repo: git@github.com:antoine-cha/my-vault.git
+gnome:
+  term:
+    default_profile: Aci Custom
 utils:
   btop:
     version: 1.3.0

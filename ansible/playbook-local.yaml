@@ -18,7 +18,8 @@
     # ================ #
     # Personal machine #
     # ================ #
-    # - gnome
-    - obsidian
+    - gnome
+    # - obsidian
     # - syncthing
     # - wine
+    # - paperless-ngx
