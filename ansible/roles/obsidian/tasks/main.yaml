@@ -10,9 +10,9 @@
   ansible.builtin.apt:
     deb: "{{ obsidian_deb_url }}"
 
-- name: Clone git repo containing the vault to
+- name: Clone git repo containing the vault
   # Repeating the condition, to avoid pulling the repo mutliple times as each execution will change
   when: not obsidian_stat.stat.exists
   ansible.builtin.git:
     repo: "{{ obsidian.git_repo }}"
-    dest: "{{ ansible_env.HOME }}/obsidian-vault"
+    dest: "{{ obsidian.vault_dir }}"

@@ -7,6 +7,7 @@ nvidia:
   cudnn_version: 8.9.7.*
 obsidian:
   git_repo: git@github.com:antoine-cha/my-vault.git
+  vault_dir: "{{ ansible_env.HOME }}/obsidian-vault"
 gnome:
   term:
     default_profile: Aci Custom
