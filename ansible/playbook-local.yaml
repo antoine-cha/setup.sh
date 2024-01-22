@@ -4,16 +4,21 @@
   vars_files:
     - config.yaml
   roles:
-    # - example
     # - rust
     # - utils-install
     # - neovim
     # - dotfiles
     # - vscode
     # - docker
-    - btop
-    # GPU only
+    # - btop
+    # ======== #
+    # GPU only #
+    # ======== #
     # - nvidia
-    # Mostly for personal machines
-    # - wine
+    # ================ #
+    # Personal machine #
+    # ================ #
+    # - gnome
+    - obsidian
     # - syncthing
+    # - wine

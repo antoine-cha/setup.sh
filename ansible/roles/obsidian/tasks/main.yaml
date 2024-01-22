@@ -1,0 +1,18 @@
+---
+- name: Check if obsidian is installed
+  ansible.builtin.stat:
+    path: "/usr/bin/obsidian"
+  register: obsidian_stat
+
+- name: Install Obsidian from .deb
+  when: not obsidian_stat.stat.exists
+  become: true
+  ansible.builtin.apt:
+    deb: "{{ obsidian_deb_url }}"
+
+- name: Clone git repo containing the vault to
+  # Repeating the condition, to avoid pulling the repo mutliple times as each execution will change
+  when: not obsidian_stat.stat.exists
+  ansible.builtin.git:
+    repo: "{{ obsidian.git_repo }}"
+    dest: "{{ ansible_env.HOME }}/obsidian-vault"
