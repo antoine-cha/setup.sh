@@ -11,15 +11,12 @@ set nocompatible
 autocmd BufWritePre * %s/\s\+$//e
 " Vertical bar at 100 characters
 set colorcolumn=100
-highlight ColorColumn cterm=NONE ctermbg=236 ctermfg=NONE gui=NONE guibg=#303030 guifg=NONE
 " turn line numbers on
 set number
-highlight CursorLineNr ctermfg=green guifg=green
 " highlight matching braces
 set showmatch
 " Highlight current line
 set cursorline
-highlight CursorLine cterm=NONE ctermbg=236 ctermfg=NONE gui=NONE guibg=#303030 guifg=NONE
 " intelligent comments
 set comments=sl:/*,mb:\ *,elx:\ */
 " Highlight search pattern where found
@@ -92,19 +89,50 @@ au BufRead,BufNewFile .ghci set filetype=haskell
 " -------------------------------- "
 "         Colors
 " -------------------------------- "
+" Enable italics
+set t_ZH=[3m
+set t_ZR=[23m
 " turn syntax highlighting on
 set t_Co=256
 syntax on
-" colorscheme molokai
-" let g:molokai_original = 1
-" let g:rehash256 = 1
-hi MatchParen      ctermfg=19 ctermbg=green  cterm=bold
+colorscheme molokai
+highlight Comment cterm=italic
 
 " -------------------------------- "
 "         Misc
 " -------------------------------- "
-" Enable italics
-set t_ZH=[3m
-set t_ZR=[23m
 " vimdiff params
 set diffopt=vertical,filler
+
+" -------------------------------- "
+"         Status bar
+" -------------------------------- "
+set laststatus=2  " Always display the status line
+
+hi StatusLineTime      ctermfg=75  ctermbg=236 cterm=bold
+hi StatusLineStatus    ctermfg=172 ctermbg=236 cterm=bold
+hi StatusLineFile      ctermfg=76 ctermbg=236 cterm=bold
+hi StatusLineFormat    ctermfg=135 ctermbg=236 cterm=bold
+hi StatusLineCoords    ctermfg=144 ctermbg=236 cterm=bold
+hi StatusLineSplitter  ctermfg=254 ctermbg=236 cterm=bold
+
+" Configure the status line
+let g:lsplitter="\ \▶\ "
+
+set statusline=%#StatusLineTime#
+set statusline+=%{strftime('%a\ %d\ %b\ %Y,\ %H:%M\ %Z\ ')}
+set statusline+=%#StatusLineSplitter#%{g:lsplitter}
+set statusline+=%#StatusLineStatus#
+set statusline+=Status:%h%m%r  " Help file, modified, readonly flags
+set statusline+=\ Mode:[%{mode()}]
+set statusline+=%#StatusLineSplitter#%{g:lsplitter}
+set statusline+=%#StatusLineFile#
+set statusline+=%y  " File type
+set statusline+=\ %F  " Full path of the file
+set statusline+=%=  " Switch to the right side
+set statusline+=%#StatusLineFormat#
+set statusline+=\ Format:[%{&fileformat}]  " File format (unix/dos/mac)
+set statusline+=\ Encoding:[%{&fileencoding?&fileencoding:'none'}]  " File encoding
+set statusline+=%#StatusLineSplitter#%{g:lsplitter}
+set statusline+=%#StatusLineCoords#
+set statusline+=x:%3c,\ y:%3l/%L\ (%3p%%)  " Column number, line number/total lines
