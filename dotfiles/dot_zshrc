@@ -92,11 +92,13 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$HOME/.local/bin${PATH:+:${PATH}}
 # pyenv
 export PATH="$HOME/.pyenv/bin${PATH:+:${PATH}}"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 # The double init is not an error
 # Source: https://stackoverflow.com/a/70307478
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
 # Rust
 source "$HOME/.cargo/env"
 # Cuda
