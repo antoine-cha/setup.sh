@@ -1,6 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
+$cmd_duration\
 [](color_orange)\
 $os\
 $username\
@@ -95,6 +96,11 @@ truncation_symbol = "…/"
 "Music" = "󰝚 "
 "Pictures" = " "
 "Developer" = "󰲋 "
+
+[cmd_duration]
+min_time = 2_000
+show_milliseconds = true
+format = "🕓 Command took [$duration]($style)\n"
 
 [git_branch]
 symbol = ""
