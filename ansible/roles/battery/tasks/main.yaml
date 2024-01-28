@@ -1,0 +1,18 @@
+---
+- name: Add linrunnner/tlp repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:linrunner/tlp
+    state: present
+
+- name: Install acpi, tlp & powertop
+  become: true
+  ansible.builtin.apt:
+    name:
+      - acpi
+      - powertop
+      - tlp
+      - tlp-rdw
+    state: present
+    update_cache: true
+    cache_valid_time: 3600

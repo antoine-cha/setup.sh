@@ -1,0 +1,15 @@
+---
+- name: Add Retroarch repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:libretro/stable
+    state: present
+
+- name: Install retroarch
+  become: true
+  ansible.builtin.apt:
+    name:
+      - retroarch
+    state: present
+    update_cache: true
+    cache_valid_time: 3600

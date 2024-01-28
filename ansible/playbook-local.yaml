@@ -18,8 +18,11 @@
     # ================ #
     # Personal machine #
     # ================ #
-    - gnome
+    # - gnome
     # - obsidian
     # - syncthing
     # - wine
     # - paperless-ngx
+    # - retroarch
+    # - latex
+    - battery
