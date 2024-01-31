@@ -4,21 +4,21 @@ Setup scripts and config files
 
 
 ## TODO
-* [ ] Dotfiles setup with `chezmoi`
-  * [ ] Init
-  * [ ] Bashrc / zshrc --> check tutorial
-* [ ] tmux setup
-* [ ] inputrc + fzf setup
-* [ ] nvim basic setup
-* [ ] ripgrep, exa, bat
-* [ ] gitconfig with `delta`
+* [x] Dotfiles setup with `chezmoi`
+  * [x] Init
+  * [x] Bashrc / zshrc --> check tutorial
+* [x] tmux setup
+* [x] inputrc + fzf setup
+* [x] nvim basic setup
+* [x] ripgrep, exa, bat
+* [x] gitconfig with `delta`
 
 ## Dev
-- [ ] nvidia-drivers
-- [ ] docker
-- [ ] docker-compose
+- [x] nvidia-drivers
+- [x] docker
+- [x] docker-compose
 - [ ] tree (or Rust equivalent)
-- [ ] htop
-- [ ] nvitop
+- [x] htop
+- [x] nvitop
 
 

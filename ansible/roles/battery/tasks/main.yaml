@@ -1,18 +1,40 @@
 ---
-- name: Add linrunnner/tlp repository
-  become: true
-  ansible.builtin.apt_repository:
-    repo: ppa:linrunner/tlp
-    state: present
+# - name: Add linrunnner/tlp repository
+#   become: true
+#   ansible.builtin.apt_repository:
+#     repo: ppa:linrunner/tlp
+#     state: present
 
-- name: Install acpi, tlp & powertop
-  become: true
-  ansible.builtin.apt:
-    name:
-      - acpi
-      - powertop
-      - tlp
-      - tlp-rdw
-    state: present
-    update_cache: true
-    cache_valid_time: 3600
+# - name: Install acpi, tlp & powertop
+#   become: true
+#   ansible.builtin.apt:
+#     name:
+#       - acpi
+#       - powertop
+#       - tlp
+#       - tlp-rdw
+#     state: present
+#     update_cache: true
+#     cache_valid_time: 3600
+
+- name: Print all available facts
+  ansible.builtin.include_tasks: dell.yaml
+  when: ansible_facts.chassis_vendor == "Dell Inc."
+
+
+# - name: Get dmidecode information
+#   become: true
+#   ansible.builtin.shell: dmidecode | python3 {{ playbook_dir }}/roles/battery/files/parse_dmidecode.py
+#   delegate_to: localhost
+#   register: dmi_data
+
+
+
+# - name: Disable Bluetooth in /etc/bluetooth/main.conf
+#   ansible.builtin.lineinfile:
+#     path: /etc/bluetooth/main.conf
+#     regexp: '^AutoEnable=true'
+#     line: 'AutoEnable=false'
+#     state: present
+
+

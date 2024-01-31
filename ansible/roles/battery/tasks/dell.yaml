@@ -1,0 +1,27 @@
+---
+- name: Prepare ~/.local/share/cctk
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.local/share/cctk"
+    mode: "0775"
+    state: directory
+
+- name: Download cctk .deb
+  ansible.builtin.unarchive:
+    remote_src: true
+    src: "https://dl.dell.com/FOLDER10469726M/1/command-configure_4.11.0-6.ubuntu22_amd64.tar.gz"
+    dest: "{{ ansible_env.HOME }}/.local/share/cctk"
+    mode: "0755"
+
+- name: Install srvadmin HAPI for cctk
+  become: true
+  ansible.builtin.apt:
+    deb: "{{ ansible_env.HOME }}/.local/share/cctk/srvadmin-hapi_9.5.0_amd64.deb"
+
+- name: Install cctk
+  become: true
+  ansible.builtin.apt:
+    deb: "{{ ansible_env.HOME }}/.local/share/cctk/command-configure_4.11.0-6.ubuntu22_amd64.deb"
+
+- name: Set battery charge threshold
+  become: true
+  ansible.builtin.command: /opt/dell/dcc/cctk --PrimaryBattChargeCfg=Custom:60-80
