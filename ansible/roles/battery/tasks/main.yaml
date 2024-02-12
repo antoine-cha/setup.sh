@@ -21,20 +21,17 @@
   ansible.builtin.include_tasks: dell.yaml
   when: ansible_facts.chassis_vendor == "Dell Inc."
 
+- name: Disable Bluetooth in /etc/bluetooth/main.conf
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/bluetooth/main.conf
+    regexp: '^AutoEnable=true'
+    line: 'AutoEnable=false'
+    state: present
 
-# - name: Get dmidecode information
-#   become: true
-#   ansible.builtin.shell: dmidecode | python3 {{ playbook_dir }}/roles/battery/files/parse_dmidecode.py
-#   delegate_to: localhost
-#   register: dmi_data
-
-
-
-# - name: Disable Bluetooth in /etc/bluetooth/main.conf
-#   ansible.builtin.lineinfile:
-#     path: /etc/bluetooth/main.conf
-#     regexp: '^AutoEnable=true'
-#     line: 'AutoEnable=false'
-#     state: present
+- name: Disable Docker network nic:docker0
+  become: true
+  ansible.builtin.command:
+    ifconfig docker0 down
 
 
