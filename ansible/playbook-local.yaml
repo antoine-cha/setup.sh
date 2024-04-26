@@ -23,6 +23,6 @@
     # - syncthing
     # - wine
     # - paperless-ngx
-    # - retroarch
+    - retroarch
     # - latex
-    - battery
+    # - battery

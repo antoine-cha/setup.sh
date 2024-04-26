@@ -98,12 +98,19 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+# Rye setup
+source "$HOME/.rye/env"
 
 # Rust
 source "$HOME/.cargo/env"
 # Cuda
 export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+# Dell command-configure
+export PATH=/opt/dell/dcc${PATH:+:${PATH}}
+# Ruby setup (mainly for Jekyll)
+export GEM_HOME="$HOME/gems"
+export PATH=$HOME/gems/bin${PATH:+:${PATH}}
 
 # Params
 export EDITOR="nvim"
@@ -127,4 +134,4 @@ neofetch
 eval "$(starship init zsh)"
 
 #### PROFILING
-#zprof
+# zprof

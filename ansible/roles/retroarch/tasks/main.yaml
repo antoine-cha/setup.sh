@@ -1,15 +1,25 @@
 ---
-- name: Add Retroarch repository
+# - name: Add Retroarch repository
+#   become: true
+#   ansible.builtin.apt_repository:
+#     repo: ppa:libretro/stable
+    # state: present
+- name: Add libretro apt repository
   become: true
-  ansible.builtin.apt_repository:
-    repo: ppa:libretro/stable
+  ansible.builtin.deb822_repository:
+    name: libretro-stable
+    types: [deb]
+    uris: "http://ppa.launchpadcontent.net/libretro/stable/ubuntu/"
+    signed_by: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b2ba0b6750986899b189aff18daae7feca3745f"
+    components: [main]
+    suites: ["{{ ansible_distribution_release | lower }}"]
     state: present
+    enabled: true
 
 - name: Install retroarch
   become: true
   ansible.builtin.apt:
-    name:
-      - retroarch
+    name: retroarch
     state: present
     update_cache: true
     cache_valid_time: 3600
